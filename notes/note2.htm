@@ -1,0 +1,279 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Нотный тренажёр - Ключ Фа</title>
+
+<script src="js/raphael-min.js"></script>
+<script src="js/jquery-1.8.3.min.js"  type="text/javascript"></script>
+<script type="text/javascript">
+var gNote='';
+//использование Math.round() даст неравномерное распределение!
+function getRandomInt(min, max)
+{
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function CreateTest(r){
+	   var arr = []
+	   arr['C1'] = 90;
+	   arr['D1'] = 85;
+	   arr['E1'] = 80;
+	   arr['F1'] = 75;
+	   arr['G1'] = 70;
+	   arr['A1'] = 65;
+	   arr['B1'] = 60;
+	   arr['C2'] = 55;
+	   arr['D2'] = 50;
+	   arr['E2'] = 45;
+	   arr['F2'] = 40;
+	   arr['G2'] = 35;
+	   arr['A2'] = 30;
+	   arr['B2'] = 25;
+	   //=============
+		var ans=[];
+		ans['C1'] = 'До Б';
+		ans['D1'] = 'Ре Б';
+		ans['E1'] = 'Ми Б';
+		ans['F1'] = 'Фа Б';
+		ans['G1'] = 'Соль Б';
+		ans['A1'] = 'Ля Б';
+		ans['B1'] = 'Си Б';
+		ans['C2'] = 'До М';
+		ans['D2'] = 'Ре М';
+		ans['E2'] = 'Ми М';
+		ans['F2'] = 'Фа М';
+		ans['G2'] = 'Соль М';
+		ans['A2'] = 'Ля М';
+		ans['B2'] = 'Си М';
+	var note=[];
+	
+	$(".nnote:checked").each(function(){
+		note.push($(this).attr("id"));
+			   
+	});
+	if(note.length<1)note.push('C1');
+	var n='';
+	if(note.length>1){
+		n=note[getRandomInt(0, note.length-1)];
+		while(n==gNote){
+			n=note[getRandomInt(0, note.length-1)];
+		}
+	}else{
+		n=note[getRandomInt(0, note.length-1)];
+	}
+	gNote=n;
+	//alert(n);
+	r.clear();
+	
+	//Horzontal Lines
+	r.path("M 5 30 L 240 30").attr({stroke: "#999999",  "stroke-opacity": 1,"stroke-width": 1, cursor: "move"});
+   	r.path("M 5 40 L 240 40").attr({stroke: "#999999",  "stroke-opacity": 1,"stroke-width": 1, cursor: "move"});
+   	r.path("M 5 50 L 240 50").attr({stroke: "#999999",  "stroke-opacity": 1,"stroke-width": 1, cursor: "move"});
+   	r.path("M 5 60 L 240 60").attr({stroke: "#999999",  "stroke-opacity": 1,"stroke-width": 1, cursor: "move"});
+	r.path("M 5 70 L 240 70").attr({stroke: "#999999",  "stroke-opacity": 1,"stroke-width": 1, cursor: "move"});
+   	
+	//Note
+	r.ellipse(55,arr[n],8,5).attr({fill: "#000000",  "fill-opacity": 1, "stroke-width": 0, cursor: "move"});
+	
+	//Treble Clef
+	if($('#key_note').attr('checked'))r.path("M 9.78125 0 C 8.79443 0.0199 7.84897 0.14967 7.0625 0.375 C 4.50183 1.10869 1.79742 3.86449 1.03125 6.5 C 0.26377 9.14005 0.57792 10.9155 2 12.21875 C 2.97008 13.10774 3.36565 13.25 4.71875 13.25 C 6.92341 13.25 8.22628 12.11989 8.46875 9.96875 C 8.67543 8.13521 8.19697 7.13234 6.71875 6.21875 C 6.00495 5.7776 5.30003 5.6014 4.5625 5.6875 C 3.92424 5.762 3.46809 5.66218 3.46875 5.46875 C 3.47275 4.46877 5.83934 1.65079 7.21875 1.125 C 8.59815 0.59922 11.53882 0.81967 12.6875 1.59375 C 14.15613 2.58346 15.42179 4.56134 16 6.78125 C 17.83937 13.84304 13.92321 20.7045 4.5625 26.84375 C 2.63922 28.10514 0.78719 29.34783 0.4375 29.625 C -0.17746 30.11242 -0.16237 30.14682 0.6875 29.96875 C 2.2525 29.64084 7.99184 26.69345 11.0625 24.65625 C 16.19611 21.2504 18.56092 18.48116 20.1875 14 C 22.28029 8.23442 19.91606 2.58555 14.625 0.71875 C 13.29134 0.2482 11.64929 0.00182 10.09375 0 C 9.99004 -0.00011 9.88405 -0.001 9.78125 0 z M 24.5 3.3125 C 23.35164 3.3125 22.4375 4.14756 22.4375 5.15625 C 22.4375 6.16494 23.35164 6.96875 24.5 6.96875 C 25.64835 6.96875 26.59375 6.16494 26.59375 5.15625 C 26.59375 4.14756 25.64835 3.3125 24.5 3.3125 z M 24.625 13.28125 C 23.47665 13.28125 22.53125 14.08505 22.53125 15.09375 C 22.53125 16.10244 23.47665 16.90625 24.625 16.90625 C 25.77336 16.90625 26.6875 16.10244 26.6875 15.09375 C 26.6875 14.08505 25.77336 13.28125 24.625 13.28125 z").attr({stroke: "#999999", fill:"#999999", "stroke-opacity": 1,"stroke-width": 1, cursor: "move", transform:"t10,30"});
+
+	if(n=='C1')
+	{
+		r.path("M 42 80 L 68 80").attr({stroke: "#000000",  "stroke-opacity": 1,"stroke-width": 1, cursor: "move"});
+		r.path("M 42 90 L 68 90").attr({stroke: "#000000",  "stroke-opacity": 1,"stroke-width": 1, cursor: "move"});
+	}
+	if(n=='E1' || n=='D1')
+	{
+		r.path("M 42 80 L 68 80").attr({stroke: "#000000",  "stroke-opacity": 1,"stroke-width": 1, cursor: "move"});
+	}
+   	$('#ansans').html(ans[n]).hide();
+}
+
+$(document).ready(function()
+{
+   var r = Raphael("holder", 100, 100);
+	$('#ans').click(function(){
+		$('#ansans').toggle(100);
+	});
+	$("#okt1").click( function() { 
+        if($('#okt1').attr('checked')){ 
+            $('.okt1:enabled').attr('checked', true); 
+        } else {
+            $('.okt1:enabled').attr('checked', false); 
+        }
+   });
+	$("#okt2").click( function() {
+        if($('#okt2').attr('checked')){ 
+            $('.okt2:enabled').attr('checked', true); 
+        } else {
+            $('.okt2:enabled').attr('checked', false);
+        }
+   });
+   $("#bt1").click(function (){CreateTest(r);});
+   
+});
+</script>
+
+
+<style type="text/css">
+ .myButton_click
+{
+    color: #fff;
+    font: bold 16px "Segoe UI", calibri, verdana;
+    background: hsla(31,98%,47%,1);
+    background-origin: padding-box, border-box;
+    background-clip: padding-box, border-box;
+    border: 1px solid transparent;
+    border-radius: 5px;
+	-moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    text-shadow: 0 1px 1px #E96605;
+    outline: 0;
+	display:inline-block;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.5), 0 3px 6px -3px rgba(0,0,0,0.25);
+    
+    background-image: -webkit-linear-gradient(hsla(38,98%,53%,1), hsla(31,98%,47%,1) 50%), -webkit-linear-gradient(hsla(31,98%,47%,1), #ccc);
+    background-image:    -moz-linear-gradient(hsla(38,98%,53%,1), hsla(31,98%,47%,1) 50%),    -moz-linear-gradient(hsla(31,98%,47%,1), #ccc);
+    background-image:     -ms-linear-gradient(hsla(38,98%,53%,1), hsla(31,98%,47%,1) 50%),     -ms-linear-gradient(hsla(31,98%,47%,1), #ccc);
+    background-image:      -o-linear-gradient(hsla(38,98%,53%,1), hsla(31,98%,47%,1) 50%),      -o-linear-gradient(hsla(31,98%,47%,1), #ccc);
+    background-image:         linear-gradient(hsla(38,98%,53%,1), hsla(31,98%,47%,1) 50%),         linear-gradient(hsla(31,98%,47%,1), #ccc);   
+}
+
+.myButton_click:hover
+{
+	background-image: -webkit-linear-gradient(hsla(31,98%,47%,1), hsla(38,98%,53%,1) 50%), -webkit-linear-gradient(hsla(38,98%,53%,1), #ccc);
+    background-image:    -moz-linear-gradient(hsla(31,98%,47%,1), hsla(38,98%,53%,1) 50%),    -moz-linear-gradient(hsla(38,98%,53%,1), #ccc);
+    background-image:     -ms-linear-gradient(hsla(31,98%,47%,1), hsla(38,98%,53%,1) 50%),     -ms-linear-gradient(hsla(38,98%,53%,1), #ccc);
+    background-image:      -o-linear-gradient(hsla(31,98%,47%,1), hsla(38,98%,53%,1) 50%),      -o-linear-gradient(hsla(38,98%,53%,1), #ccc);
+    background-image:         linear-gradient(hsla(31,98%,47%,1), hsla(38,98%,53%,1) 50%),         linear-gradient(hsla(38,98%,53%,1), #ccc);
+	cursor:pointer;
+}
+.myButton_click:active
+{
+    color: #666;
+    position: relative;
+    top: 1px;
+    text-shadow: 0 -1px #fff;
+    box-shadow: inset 0 1px 4px 1px rgba(0,0,0,0.1), inset 0 6px 14px rgba(0,0,0,0.07), 0 1px #fff;
+    
+    background-image: -webkit-linear-gradient(#f0f0f0, #e0e0e0 50%), -webkit-linear-gradient(#cfcfcf, #c6c6c6);
+    background-image:    -moz-linear-gradient(#f0f0f0, #e0e0e0 50%),    -moz-linear-gradient(#cfcfcf, #c6c6c6);
+    background-image:     -ms-linear-gradient(#f0f0f0, #e0e0e0 50%),     -ms-linear-gradient(#cfcfcf, #c6c6c6);
+    background-image:      -o-linear-gradient(#f0f0f0, #e0e0e0 50%),      -o-linear-gradient(#cfcfcf, #c6c6c6);
+    background-image:         linear-gradient(#f0f0f0, #e0e0e0 50%),         linear-gradient(#cfcfcf, #c6c6c6);   
+}
+
+		
+  div { 
+  font-size:15px;
+  text-align: justify; 
+  font-family: 'segoe ui'; }
+
+#holder {
+	border: thin hsla(0,0%,80%,1) solid;
+	width: 110px;
+	height:110px;
+	box-shadow: inset 0px 0px 5px hsla(0,0%,80%,1);
+	padding:10px;
+	border-radius:5px;
+	text-align:center;
+	margin:0 auto;
+}
+#ansans {
+    font: normal 14px "Segoe UI", calibri, verdana;
+	width:100px;
+	text-align:center;
+    background: #cfcfcf;
+    background-origin: padding-box, border-box;
+    background-clip: padding-box, border-box;
+    border: 1px solid transparent;
+    border-radius: 5px;
+	-moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    padding: 8px 10px;
+    text-decoration: none;
+    outline: 0;
+    color: #666;
+    text-shadow: 0 -1px #fff;
+    box-shadow: inset 0 1px 4px 1px rgba(0,0,0,0.1), inset 0 6px 14px rgba(0,0,0,0.07), 0 1px #fff;
+    
+background-image: -webkit-linear-gradient(#f0f0f0, #e0e0e0 50%),
+-webkit-linear-gradient(#cfcfcf, #c6c6c6);
+background-image:-moz-linear-gradient(#f0f0f0, #e0e0e0 50%),
+-moz-linear-gradient(#cfcfcf, #c6c6c6);
+background-image:-ms-linear-gradient(#f0f0f0, #e0e0e0 50%),
+-ms-linear-gradient(#cfcfcf, #c6c6c6);
+background-image:-o-linear-gradient(#f0f0f0, #e0e0e0 50%),
+-o-linear-gradient(#cfcfcf, #c6c6c6);
+background-image:linear-gradient(#f0f0f0, #e0e0e0 50%),
+linear-gradient(#cfcfcf, #c6c6c6);
+}
+td {
+   	padding:6px 4px;
+	font-family:"Segoe UI", calibri, verdana;
+	font-size:13px;
+   }
+.choose {
+	width:339px;
+	margin:0 auto;
+}
+</style>
+</head>
+
+<body>
+<div style="padding:12px; border:thin hsla(0,0%,80%,1) solid; width:340px; margin:0 auto;">
+<table width="340" border="0" cellspacing="4" cellpadding="0">
+  <tr>
+    <td width="50%" style="border-bottom:thin hsla(0,0%,80%,1) solid; border-right:thin hsla(0,0%,80%,1) solid;"><div id="holder"></div></td>
+    <td width="50%" style="border-bottom:thin hsla(0,0%,80%,1) solid;"><div id="ansans">Нажми<br>"Новая нота"</div></td>
+  </tr>
+  <tr>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid; border-right:thin hsla(0,0%,80%,1) solid;"><input type="checkbox" id="okt1" checked>Большая октава</td>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid;"><input type="checkbox" id="okt2" checked>Малая октава</td>
+  </tr>
+  <tr>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid; border-right:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt1" type="checkbox" id="C1" checked>До Б</td>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt2" type="checkbox" id="C2" checked >До М</td>
+  </tr>
+  <tr>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid; border-right:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt1" type="checkbox" id="D1" checked>Ре Б</td>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt2" type="checkbox" id="D2" checked>Ре М</td>
+  </tr>
+  <tr>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid; border-right:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt1" type="checkbox" id="E1" checked>Ми Б</td>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt2" type="checkbox" id="E2" checked>Ми М</td>
+  </tr>
+  <tr>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid; border-right:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt1" type="checkbox" id="F1" checked>Фа Б</td>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt2" type="checkbox" id="F2" checked>Фа М</td>
+  </tr>
+  <tr>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid; border-right:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt1" type="checkbox" id="G1" checked>Соль Б</td>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt2" type="checkbox" id="G2" checked>Соль М</td>
+  </tr>
+  <tr>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid; border-right:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt1" type="checkbox" id="A1" checked>Ля Б</td>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt2" type="checkbox" id="A2" checked>Ля М</td>
+  </tr>
+  <tr>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid; border-right:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt1" type="checkbox" id="B1" checked>Си Б</td>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt2" type="checkbox" id="B2" checked>Си М</td>
+  </tr>
+  <tr>
+    <td style="border-right:thin hsla(0,0%,80%,1) solid;">Доп.Настройки</td>
+    <td><input type="checkbox" id="key_note" checked>Показывать ключ</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+<input class="myButton_click" id="bt1" type="button" value="Новая нота"/><input class="myButton_click" id='ans' type="button" value="Верный ответ"/>
+</div>
+
+
+</body>
+</html>

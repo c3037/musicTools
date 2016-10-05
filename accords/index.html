@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Accords</title>
+	<script src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="js/raphael-min.js"></script>
+	<script type="text/javascript" src="js/accords.js"></script>
+    <script>
+    $(document).ready(function(){
+		accords.init();
+	});
+    </script>
+    <style type="text/css">  
+    #wrapper
+    {
+    	width: 560px;
+    	margin:0 auto;
+	}
+	#keyboard {
+		width:560px;
+		height: 120px;
+		outline: 1px solid #000;
+		margin-bottom: 25px;
+	}
+	#subkeys div#rows div div, #key_change_mode, #key_m, #key_color  {
+		width: 120px;
+		float:left;
+		margin-left: 30px;
+		margin-bottom: 10px;
+	}
+	#key_change_mode {
+		margin-left: 20px;
+	}
+	#subkeys  div input {
+		float:left;
+		padding: 15px 40px;
+	}
+	#subkeys div#rows input[type="checkbox"] {
+		position: relative;
+		top:17px;
+	}
+	.clear {
+		width:0!important;
+		clear: both;
+		margin:0!important;
+	}
+	#key_change_mode input {
+		padding: 15px 10px!important;
+	}
+	#key_color {
+		padding: 0 10px;
+		width: 130px;	
+	}
+	#buttons {
+		width:450px;
+		margin:0 auto;
+	}
+	h1 {
+		text-align:center;	
+	}
+	#result {
+		border: 1px solid #00f;
+		border-radius: 15px;
+		margin: 10px 0 20px 0;
+		display:none;
+		padding:10px 0;
+		text-align:center;
+		font-weight:bold;
+		font-size: 18px;
+		color: #00f;
+		cursor:pointer;
+	}
+	.select {
+		border: 1px solid #f00;
+		border-radius: 5px;
+	}
+	#blockTrue, #blockFalse, #blockKeys {
+		display:none;
+	}
+	#blockAccord, #blockTrue, #blockFalse {
+		padding: 10px 0 30px 0;
+		text-align:center;
+		font-size: 86px;
+		cursor:pointer;
+		margin: 0 auto;
+	}
+	.selected {
+		outline: 1px solid #f00;
+	}
+	#rows {
+		height: 266px;
+	}
+	#oneButton{
+		width: 144px;
+	}
+	#twoButton{
+		width: 144px;
+		display:none;
+	}
+	#accnotes {
+		display:inline;
+		float: none!important;
+		padding: 10px!important;
+		width: 80px;
+	}
+	#chbx2, #blacks, #blacks_div {
+		display:none;
+	}
+    </style>
+</head>
+<body>
+	<div id="wrapper">
+		<h1>Accords:</h1>
+		<div id="keyboard"></div>
+		<div id="result"></div>
+		<div id="buttons">
+			<div id="subkeys">
+				<div id="rows">
+					<div id="blockAccord" class="panel">14</div>
+					<div id="blockKeys" class="panel">
+						<div id="key_a"><input type="button" value="A" /> <!-- <input type="checkbox"/> --></div>
+						<div id="key_b"><input type="button" value="B" /> <!-- <input type="checkbox"/> --></div>
+						<div id="key_c"><input type="button" value="C" /> <!-- <input type="checkbox"/> --></div>
+						<div class="clear"></div>
+						<div id="key_d"><input type="button" value="D" /> <!-- <input type="checkbox"/> --></div>
+						<div id="key_e"><input type="button" value="E" /> <!-- <input type="checkbox"/> --></div>
+						<div id="key_f"><input type="button" value="F" /> <!-- <input type="checkbox"/> --></div>
+						<div class="clear"></div>
+						<div id="key_g"><input type="button" value="G" /> <!-- <input type="checkbox"/> --></div>
+						<div id="key_sharp"><input type="button" value="#" /> <!-- <input type="checkbox"/> --></div>
+						<div id="key_bemol"><input type="button" value="b" /> <!-- <input type="checkbox"/> --></div>
+						<div class="clear"></div>
+						<div id="key_change_mode"></div>
+						<div id="key_m"><input type="button" value="m" /></div>
+						<div id="key_color"></div>
+						<div class="clear"></div>
+					</div>
+					<div id="blockTrue" class="panel notice"></div>
+					<div id="blockFalse" class="panel notice"></div>
+				</div>
+				<div id="key_change_mode"><input type="button" id="oneButton" value="Постройте аккорд" /><input type="button" id="twoButton" value="Постройте (полу)тон" /></div>
+				<div id="key_color">
+					<div style="float:left;">Белые: &nbsp; &nbsp;&nbsp;</div> <input type="checkbox" id="white" style="float:left;" checked="checked" /><br/>
+					<div style="float:left;margin-top:10px;" id="sharp_div">Диезы: &nbsp;</div> <input type="checkbox" id="sharp" style="margin-top:14px;float:left;margin-left:14px;" checked="checked" /><br/>
+					<div style="float:left;margin-top:10px;" id="bemol_div">Бемоли:</div> <input type="checkbox" id="bemol" style="margin-top:14px;float:left;margin-left:14px;" checked="checked" />
+				</div>
+				<div id="key_mm">
+					<input type="button" id="accnotes" value="Аккорды" /> <br />
+					<div id="chbx">
+						<div style="float:left;margin-top:5px;">Минорный:</div> <input type="checkbox" id="minor" style="margin-top:9px;float:left;margin-left:14px;" checked="checked" /><br/>
+						<div style="float:left;margin-top:5px;">Мажорный:</div> <input type="checkbox" id="major" style="margin-top:9px;float:left;margin-left:14px;" checked="checked" />
+					</div>
+					<div id="chbx2">
+						<div style="float:left;margin-top:5px;">Полутон:</div> <input type="checkbox" id="semitone" style="margin-top:9px;float:left;margin-left:14px;" checked="checked" /><br/>
+    					<div style="float:left;margin-top:5px;">Тон: &nbsp; &nbsp; &nbsp; &nbsp;</div> <input type="checkbox" id="tone" style="margin-top:9px;float:left;margin-left:14px;" checked="checked" />
+    				</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

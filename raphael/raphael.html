@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Test</title>
+	<script src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="js/raphael-min.js"></script>
+	<style type="text/css">  
+    #canvas_container {  
+		width: 500px;  
+		border: 1px solid #aaa;  
+    }  
+    </style>
+	<script type="text/javascript">
+		$(function () {
+			//var paper = new Raphael(x, y, width, height); //option (a) 
+			//var paper = new Raphael(element, width, height); //option (b) 
+			//var paper = new Raphael(document.getElementById('canvas_container'), 500, 500);  
+			var paper = new Raphael("canvas_container", 500, 500);
+			
+			//var circle = paper.circle(100, 100, 80); //x,y,R
+			//for(var i = 0; i < 5; i+=1) {  
+			//	var multiplier = i*5;  
+			//	paper.circle(250 + (2*multiplier), 100 + multiplier, 50 - multiplier); 
+			//}
+			//var rectangle = paper.rect(200, 200, 250, 50); // x,y of top-left , width, height
+			//var ellipse = paper.ellipse(200, 400, 100, 50); // x = 200, y = 400 of center, x-radius = 100, y-radius = 50
+			
+			/*
+			
+			
+			
+			var tetronimo = paper.path("M 250 250 l 0 -50 l -50 0 l 0 -50 l -50 0 l 0 50 l -50 0 l 0 50 z");
+			
+			l - Относительно данной точки (M 5 30 l 10 0) +10px по горизонтали + 0px по вертикали
+			L - в координату (M 5 30 L 240 30) в точку 240x30y
+			
+			
+			// M - Поднять перо и перенести его в точку с координатами X Y
+			//l - нарисовать линию от точки до точки с координатами x y
+			//z завершение пути и соединение с точкой начала
+			//tetronimo.attr({fill: '#9cf', stroke: '#ddd', 'stroke-width': 5}); // стилизуем фигуру
+			tetronimo.attr(
+				{  
+					gradient: '90-#526c7a-#64a0c1',  
+					stroke: '#3b4449',  
+					'stroke-width': 10,  
+					'stroke-linejoin': 'round',
+					"transform": "r -90"
+				}
+			);
+			
+			// анимация тип, время в мс, финальный эфеект, callback-функция
+			tetronimo.animate({"transform": "r 360"}, 2000, "bounce", function() {
+				// callback after original animation finishes
+				this.animate({
+					"transform": "r -90",
+					"stroke": "#3b4449",
+					'stroke-width': "10"
+				}, 1000);
+			});
+			
+			//Новые стили
+			tetronimo.attr(  
+				{  
+					stroke: 'none',  
+					fill: 'blue'  
+				}  
+			);
+			//Анимация с изменением формы {трансформация}, время эффекта, эффект
+			tetronimo.animate({path: "M 250 250 l 0 -50 l -50 0 l 0 -50 l -100 0 l 0 50 l 50 0 l 0 50 z"}, 5000, 'elastic');
+			*/
+			
+			////////////////////////////////////////////////////////
+			/*
+			//нарисуем круг
+			var circ = paper.circle(250, 250, 40);  
+			circ.attr({fill: '#000', stroke: 'none'});
+			//Добавляем текст, с центральной точкой в x, y
+			var text = paper.text(250, 250, 'Bye Bye Circle!');
+			//Стилизуем
+			text.attr({opacity: 0, 'font-size': 12}).toBack();
+			
+			
+			//вешаем событие наведения мыши
+			circ.node.onmouseover = function() {  
+				this.style.cursor = 'pointer';  
+			}
+			
+			//Вешаем событие onclick
+			circ.node.onclick = function() {  
+				text.animate({opacity: 1}, 2000);  
+				circ.animate({opacity: 0}, 2000, function() {  
+					this.remove();  
+				});  
+			}
+			*/
+			
+			/////////////////////////////////////////////
+			/*
+			//Создаём круг и добавляем декст
+			var circ = paper.circle(250, 250, 20).attr({fill: '#000', cursor: 'pointer'});  
+			var mood_text = paper.text(250, 250, 'My\nMood').attr({fill: '#fff', cursor: 'pointer'});
+			
+			//создаём информацию с которой наш мод будет работать
+			moods = ['Rubbish', 'Not Good', 'OK', 'Smily', 'Positively Manic'];
+			colors = ['#cc0000', '#a97e22', '#9f9136', '#7c9a2d', '#3a9a2d'];
+			  
+			//pick a mood between 1 and 5, 1 being rubbish and 5 being positively manic  
+			var my_mood = 1; 
+			
+			//Функция обработчик вначале созадётся столько кругов позади основного сколько указывает пременная my_mood, затем они перемещаются, затем создаётся текст и потом возвращается false
+			function show_mood() {
+				var min = 1;
+				var max = 5;
+				my_mood = Math.floor(Math.random() * ((max - min) + 1)) + min; // random my_mood between min and max
+				for(var i = 0; i < my_mood; i+=1) {
+				console.log(i);
+				console.log(colors[my_mood - 1]);
+					(function(i) {
+						setTimeout(function() {
+							paper.circle(250, 250, 20).attr({
+								"stroke": "none",
+								"fill": colors[my_mood - 1]
+							}).animate({cx:250, cy: 250 - 42 * (i+1), r:20 }, 2000, "bounce" ).toBack();
+						}, 50*i);
+					})(i);
+				}
+				
+				paper.text(250, 300, moods[my_mood - 1]).attr({fill: colors[my_mood - 1]});
+				
+				mood_text.node.onclick = function() {
+					return false;
+				}
+				
+				circ.node.onclick = function() {
+					return false;
+				}
+			}
+			circ.node.onclick = show_mood;
+			mood_text.node.onclick = show_mood; 
+			*/
+		}); 
+	</script>
+</head>
+<body>
+	<div id="canvas_container"></div>
+</body>
+</html>

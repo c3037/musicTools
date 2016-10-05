@@ -1,0 +1,272 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Нотный тренажёр - Ключ Соль</title>
+
+<script src="js/raphael-min.js"></script>
+<script src="js/jquery-1.8.3.min.js"  type="text/javascript"></script>
+<script type="text/javascript">
+var gNote='';
+//использование Math.round() даст неравномерное распределение!
+function getRandomInt(min, max)
+{
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function CreateTest(r){
+	   var arr = []
+	   arr['C1'] = 80;
+	   arr['D1'] = 75;
+	   arr['E1'] = 70;
+	   arr['F1'] = 65;
+	   arr['G1'] = 60;
+	   arr['A1'] = 55;
+	   arr['B1'] = 50;
+	   arr['C2'] = 45;
+	   arr['D2'] = 40;
+	   arr['E2'] = 35;
+	   arr['F2'] = 30;
+	   arr['G2'] = 25;
+	   arr['A2'] = 20;
+	   arr['B2'] = 15;
+	   //=============
+		var ans=[];
+		ans['C1'] = 'До 1';
+		ans['D1'] = 'Ре 1';
+		ans['E1'] = 'Ми 1';
+		ans['F1'] = 'Фа 1';
+		ans['G1'] = 'Соль 1';
+		ans['A1'] = 'Ля 1';
+		ans['B1'] = 'Си 1';
+		ans['C2'] = 'До 2';
+		ans['D2'] = 'Ре 2';
+		ans['E2'] = 'Ми 2';
+		ans['F2'] = 'Фа 2';
+		ans['G2'] = 'Соль 2';
+		ans['A2'] = 'Ля 2';
+		ans['B2'] = 'Си 2';
+	var note=[];
+	
+	$(".nnote:checked").each(function(){
+		note.push($(this).attr("id"));
+			   
+	});
+	if(note.length<1)note.push('C1');
+	var n='';
+	if(note.length>1){
+		n=note[getRandomInt(0, note.length-1)];
+		while(n==gNote){
+			n=note[getRandomInt(0, note.length-1)];
+		}
+	}else{
+		n=note[getRandomInt(0, note.length-1)];
+	}
+	gNote=n;
+	//alert(n);
+	r.clear();
+	
+	//Horzontal Lines
+	r.path("M 5 30 L 240 30").attr({stroke: "#999999",  "stroke-opacity": 1,"stroke-width": 1, cursor: "move"});
+   	r.path("M 5 40 L 240 40").attr({stroke: "#999999",  "stroke-opacity": 1,"stroke-width": 1, cursor: "move"});
+   	r.path("M 5 50 L 240 50").attr({stroke: "#999999",  "stroke-opacity": 1,"stroke-width": 1, cursor: "move"});
+   	r.path("M 5 60 L 240 60").attr({stroke: "#999999",  "stroke-opacity": 1,"stroke-width": 1, cursor: "move"});
+	r.path("M 5 70 L 240 70").attr({stroke: "#999999",  "stroke-opacity": 1,"stroke-width": 1, cursor: "move"});
+   	
+	//Note
+	r.ellipse(55,arr[n],8,5).attr({fill: "#000000",  "fill-opacity": 1, "stroke-width": 0, cursor: "move"});
+	
+	//Treble Clef
+	if($('#key_note').attr('checked'))r.path("m 18.969624,49.577879 c -1.328643,0.369377 -2.526597,1.19505 -3.637421,2.455286 -1.11084,1.281968 -1.655367,2.694298 -1.655367,4.215278 0,0.95604 0.326723,2.04245 0.958369,3.19405 0.631655,1.17332 1.590019,2.02072 2.831529,2.56392 0.413841,0.0869 0.609879,0.3042 0.609879,0.60839 0,0.10864 -0.152471,0.21729 -0.522746,0.3042 -1.982075,-0.49975 -3.61565,-1.56443 -4.878946,-3.15059 -1.263301,-1.60789 -1.916732,-3.43306 -1.960299,-5.51897 0.06534,-2.238006 0.74055,-4.323914 2.025641,-6.235997 1.306863,-1.933813 2.983991,-3.30269 5.031403,-4.106635 l -1.50289,-7.71351 c -3.354265,2.781212 -6.0769,5.671061 -8.1896547,8.71301 -2.11276,3.020221 -3.201808,6.301181 -3.288927,9.842882 0.04353,1.58616 0.370275,3.12887 0.980145,4.60638 0.609864,1.49925 1.524666,2.8464 2.74441,4.08491 2.4612537,2.45529 5.6630617,3.73725 9.5618637,3.86762 1.328638,-0.0869 2.7444,-0.32593 4.269067,-0.71703 L 18.969624,49.577879 z m 1.568233,-0.217281 3.397841,16.708995 c 3.35428,-1.34715 5.031418,-4.28046 5.031418,-8.75647 -0.196038,-1.49925 -0.631656,-2.8464 -1.372206,-4.04145 C 26.876137,52.054897 25.917773,51.098851 24.698039,50.403552 23.478295,49.708247 22.1061,49.360598 20.537857,49.360598 z M 16.072753,26.763254 c 0.718773,-0.434564 1.546452,-1.195049 2.439477,-2.259731 0.893021,-1.042954 1.764256,-2.281463 2.59194,-3.672071 0.849459,-1.412332 1.524666,-2.846395 2.025636,-4.302185 0.50096,-1.434063 0.74055,-2.80294 0.74055,-4.063176 0,-0.543204 -0.04358,-1.086409 -0.152471,-1.564431 -0.08712,-0.782218 -0.326708,-1.3906092 -0.74055,-1.8034402 -0.413842,-0.391109 -0.936588,-0.608391 -1.590009,-0.608391 -1.306863,0 -2.483045,0.80394 -3.528527,2.4118312 -0.805892,1.390604 -1.481114,3.041949 -1.960298,4.910575 -0.500961,1.890354 -0.784117,3.758981 -0.827669,5.649334 0.108895,2.151095 0.457394,3.911081 1.001921,5.301685 z m -1.372206,1.260236 c -0.980144,-3.519967 -1.524666,-7.105125 -1.633575,-10.755464 0.02177,-2.346645 0.26138,-4.541199 0.718774,-6.583648 0.435617,-2.0424542 1.067272,-3.8024402 1.894956,-5.3234122 0.805892,-1.520977 1.74248,-2.672573 2.787962,-3.454791 0.936587,-0.6953 1.611799,-1.06468099 1.982074,-1.06468099 0.283157,0 0.522746,0.10864 0.74055,0.30419499 0.217814,0.195554 0.50097,0.521477 0.849459,0.95604 2.59194,3.672069 3.898802,8.1046262 3.898802,13.2759432 0,2.45529 -0.326708,4.845394 -0.980144,7.235497 -0.631656,2.368372 -1.568228,4.628108 -2.809753,6.735743 -1.263296,2.129368 -2.744401,3.976262 -4.465105,5.562426 l 1.764261,8.56091 c 0.958364,-0.108641 1.611795,-0.195555 1.98207,-0.195555 1.655361,0 3.136466,0.347655 4.508671,1.042954 1.372205,0.695305 2.548387,1.629618 3.506741,2.824667 0.958364,1.173328 1.698928,2.520474 2.221659,4.041451 0.500975,1.520977 0.784117,3.107138 0.784117,4.758478 0,2.56393 -0.675207,4.91058 -2.025622,7.01821 -1.350434,2.10764 -3.376056,3.65034 -6.098695,4.64984 0.174252,1.06468 0.479185,2.60739 0.936593,4.58466 0.435617,1.99899 0.762335,3.58515 0.980139,4.75848 0.217814,1.17332 0.304933,2.30319 0.304933,3.41133 0,1.71652 -0.413837,3.2375 -1.24151,4.58465 -0.849455,1.34715 -1.98207,2.3901 -3.419618,3.12886 -1.415772,0.73876 -2.984005,1.10814 -4.682918,1.10814 -2.395916,0 -4.486895,-0.67358 -6.272927,-1.999 -1.7860467,-1.34715 -2.7444147,-3.15059 -2.8315337,-5.45378 0.06534,-1.02122 0.304932,-1.97726 0.74055,-2.88985 0.435618,-0.91259 1.023711,-1.65135 1.7860467,-2.21628 0.74055,-0.58666 1.633575,-0.89086 2.657281,-0.95604 0.84946,0 1.655352,0.23901 2.417693,0.6953 0.740549,0.47802 1.350429,1.10814 1.807822,1.91209 0.435618,0.80394 0.675208,1.6948 0.675208,2.65084 0,1.28196 -0.435618,2.36837 -1.306853,3.25923 -0.871245,0.89086 -1.98207,1.34715 -3.310713,1.34715 l -0.50097,0 c 0.849459,1.30369 2.24345,1.97727 4.181958,1.97727 0.980144,0 1.982074,-0.21729 2.98399,-0.60839 1.023711,-0.41284 1.87318,-0.95605 2.591939,-1.65135 0.718779,-0.6953 1.197958,-1.43406 1.393996,-2.21628 0.370275,-0.89085 0.544527,-2.12936 0.544527,-3.67206 0,-1.04296 -0.10891,-2.08591 -0.304933,-3.12887 -0.196037,-1.02122 -0.500975,-2.3901 -0.914811,-4.0849 -0.413832,-1.67307 -0.718779,-2.97677 -0.893011,-3.86762 -1.306868,0.32592 -2.657297,0.49974 -4.073054,0.49974 -2.37414,0 -4.61758,-0.47801 -6.730335,-1.45579 -2.1127547,-0.97776 -3.9641447,-2.32491 -5.5759437,-4.06317 -1.590004,-1.73826 -2.831529,-3.6938 -3.724552,-5.91007 -0.871234,-2.19456 -1.32864,-4.49775 -1.350417,-6.88785 0.08712,-2.216278 0.500959,-4.345646 1.285075,-6.34464 0.784116,-2.020722 1.786048,-3.932803 3.027568,-5.714516 1.24151,-1.781713 2.526596,-3.411326 3.85524,-4.867116 1.3504137,-1.434063 3.1146747,-3.280963 5.3363387,-5.518971 z").attr({stroke: "#999999", fill:"#999999", "stroke-opacity": 1,"stroke-width": 1, cursor: "move"});
+
+	if(n=='C1')r.path("M 42 80 L 68 80").attr({stroke: "#000000",  "stroke-opacity": 1,"stroke-width": 1, cursor: "move"});
+   	if(n=='A2')r.path("M 42 20 L 68 20").attr({stroke: "#000000",  "stroke-opacity": 1,"stroke-width": 1, cursor: "move"});
+   	if(n=='B2')r.path("M 42 20 L 68 20").attr({stroke: "#000000",  "stroke-opacity": 1,"stroke-width": 1, cursor: "move"});
+   	$('#ansans').html(ans[n]).hide();
+}
+
+$(document).ready(function()
+{
+   var r = Raphael("holder", 100, 100);
+	$('#ans').click(function(){
+		$('#ansans').toggle(100);
+	});
+	$("#okt1").click( function() { 
+        if($('#okt1').attr('checked')){ 
+            $('.okt1:enabled').attr('checked', true); 
+        } else {
+            $('.okt1:enabled').attr('checked', false); 
+        }
+   });
+	$("#okt2").click( function() {
+        if($('#okt2').attr('checked')){ 
+            $('.okt2:enabled').attr('checked', true); 
+        } else {
+            $('.okt2:enabled').attr('checked', false);
+        }
+   });
+   $("#bt1").click(function (){CreateTest(r);});
+   
+});
+</script>
+
+
+<style type="text/css">
+.myButton_click
+{
+    color: #fff;
+    font: bold 16px "Segoe UI", calibri, verdana;
+    background: hsla(31,98%,47%,1);
+    background-origin: padding-box, border-box;
+    background-clip: padding-box, border-box;
+    border: 1px solid transparent;
+    border-radius: 5px;
+	-moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    text-shadow: 0 1px 1px #E96605;
+    outline: 0;
+	display:inline-block;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.5), 0 3px 6px -3px rgba(0,0,0,0.25);
+    
+    background-image: -webkit-linear-gradient(hsla(38,98%,53%,1), hsla(31,98%,47%,1) 50%), -webkit-linear-gradient(hsla(31,98%,47%,1), #ccc);
+    background-image:    -moz-linear-gradient(hsla(38,98%,53%,1), hsla(31,98%,47%,1) 50%),    -moz-linear-gradient(hsla(31,98%,47%,1), #ccc);
+    background-image:     -ms-linear-gradient(hsla(38,98%,53%,1), hsla(31,98%,47%,1) 50%),     -ms-linear-gradient(hsla(31,98%,47%,1), #ccc);
+    background-image:      -o-linear-gradient(hsla(38,98%,53%,1), hsla(31,98%,47%,1) 50%),      -o-linear-gradient(hsla(31,98%,47%,1), #ccc);
+    background-image:         linear-gradient(hsla(38,98%,53%,1), hsla(31,98%,47%,1) 50%),         linear-gradient(hsla(31,98%,47%,1), #ccc);   
+}
+
+.myButton_click:hover
+{
+	background-image: -webkit-linear-gradient(hsla(31,98%,47%,1), hsla(38,98%,53%,1) 50%), -webkit-linear-gradient(hsla(38,98%,53%,1), #ccc);
+    background-image:    -moz-linear-gradient(hsla(31,98%,47%,1), hsla(38,98%,53%,1) 50%),    -moz-linear-gradient(hsla(38,98%,53%,1), #ccc);
+    background-image:     -ms-linear-gradient(hsla(31,98%,47%,1), hsla(38,98%,53%,1) 50%),     -ms-linear-gradient(hsla(38,98%,53%,1), #ccc);
+    background-image:      -o-linear-gradient(hsla(31,98%,47%,1), hsla(38,98%,53%,1) 50%),      -o-linear-gradient(hsla(38,98%,53%,1), #ccc);
+    background-image:         linear-gradient(hsla(31,98%,47%,1), hsla(38,98%,53%,1) 50%),         linear-gradient(hsla(38,98%,53%,1), #ccc);
+	cursor:pointer;
+}
+.myButton_click:active
+{
+    color: #666;
+    position: relative;
+    top: 1px;
+    text-shadow: 0 -1px #fff;
+    box-shadow: inset 0 1px 4px 1px rgba(0,0,0,0.1), inset 0 6px 14px rgba(0,0,0,0.07), 0 1px #fff;
+    
+    background-image: -webkit-linear-gradient(#f0f0f0, #e0e0e0 50%), -webkit-linear-gradient(#cfcfcf, #c6c6c6);
+    background-image:    -moz-linear-gradient(#f0f0f0, #e0e0e0 50%),    -moz-linear-gradient(#cfcfcf, #c6c6c6);
+    background-image:     -ms-linear-gradient(#f0f0f0, #e0e0e0 50%),     -ms-linear-gradient(#cfcfcf, #c6c6c6);
+    background-image:      -o-linear-gradient(#f0f0f0, #e0e0e0 50%),      -o-linear-gradient(#cfcfcf, #c6c6c6);
+    background-image:         linear-gradient(#f0f0f0, #e0e0e0 50%),         linear-gradient(#cfcfcf, #c6c6c6);   
+}
+
+		
+  div { 
+  font-size:15px;
+  text-align: justify; 
+  font-family: 'segoe ui'; }
+
+#holder {
+	border: thin hsla(0,0%,80%,1) solid;
+	width: 110px;
+	height:110px;
+	box-shadow: inset 0px 0px 5px hsla(0,0%,80%,1);
+	padding:10px;
+	border-radius:5px;
+	text-align:center;
+	margin:0 auto;
+}
+#ansans {
+    font: normal 14px "Segoe UI", calibri, verdana;
+	width:100px;
+	text-align:center;
+    background: #cfcfcf;
+    background-origin: padding-box, border-box;
+    background-clip: padding-box, border-box;
+    border: 1px solid transparent;
+    border-radius: 5px;
+	-moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    padding: 8px 10px;
+    text-decoration: none;
+    outline: 0;
+    color: #666;
+    text-shadow: 0 -1px #fff;
+    box-shadow: inset 0 1px 4px 1px rgba(0,0,0,0.1), inset 0 6px 14px rgba(0,0,0,0.07), 0 1px #fff;
+    
+background-image: -webkit-linear-gradient(#f0f0f0, #e0e0e0 50%),
+-webkit-linear-gradient(#cfcfcf, #c6c6c6);
+background-image:-moz-linear-gradient(#f0f0f0, #e0e0e0 50%),
+-moz-linear-gradient(#cfcfcf, #c6c6c6);
+background-image:-ms-linear-gradient(#f0f0f0, #e0e0e0 50%),
+-ms-linear-gradient(#cfcfcf, #c6c6c6);
+background-image:-o-linear-gradient(#f0f0f0, #e0e0e0 50%),
+-o-linear-gradient(#cfcfcf, #c6c6c6);
+background-image:linear-gradient(#f0f0f0, #e0e0e0 50%),
+linear-gradient(#cfcfcf, #c6c6c6);
+}
+td {
+   	padding:6px 4px;
+	font-family:"Segoe UI", calibri, verdana;
+	font-size:13px;
+   }
+.choose {
+	width:339px;
+	margin:0 auto;
+}
+</style>
+</head>
+
+<body>
+<div style="padding:12px; border:thin hsla(0,0%,80%,1) solid; width:340px; margin:0 auto;">
+<table width="340" border="0" cellspacing="4" cellpadding="0">
+  <tr>
+    <td width="50%" style="border-bottom:thin hsla(0,0%,80%,1) solid; border-right:thin hsla(0,0%,80%,1) solid;"><div id="holder"></div></td>
+    <td width="50%" style="border-bottom:thin hsla(0,0%,80%,1) solid;"><div id="ansans">Нажми<br>"Новая нота"</div></td>
+  </tr>
+  <tr>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid; border-right:thin hsla(0,0%,80%,1) solid;"><input type="checkbox" id="okt1" checked>Первая октава</td>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid;"><input type="checkbox" id="okt2" checked>Вторая октава</td>
+  </tr>
+  <tr>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid; border-right:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt1" type="checkbox" id="C1" checked>До 1</td>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt2" type="checkbox" id="C2" checked >До 2</td>
+  </tr>
+  <tr>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid; border-right:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt1" type="checkbox" id="D1" checked>Ре 1</td>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt2" type="checkbox" id="D2" checked>Ре 2</td>
+  </tr>
+  <tr>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid; border-right:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt1" type="checkbox" id="E1" checked>Ми 1</td>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt2" type="checkbox" id="E2" checked>Ми 2</td>
+  </tr>
+  <tr>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid; border-right:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt1" type="checkbox" id="F1" checked>Фа 1</td>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt2" type="checkbox" id="F2" checked>Фа 2</td>
+  </tr>
+  <tr>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid; border-right:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt1" type="checkbox" id="G1" checked>Соль 1</td>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt2" type="checkbox" id="G2" checked>Соль 2</td>
+  </tr>
+  <tr>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid; border-right:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt1" type="checkbox" id="A1" checked>Ля 1</td>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt2" type="checkbox" id="A2" checked>Ля 2</td>
+  </tr>
+  <tr>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid; border-right:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt1" type="checkbox" id="B1" checked>Си 1</td>
+    <td style="border-bottom:thin hsla(0,0%,80%,1) solid;"><input class="nnote okt2" type="checkbox" id="B2" checked>Си 2</td>
+  </tr>
+  <tr>
+    <td style="border-right:thin hsla(0,0%,80%,1) solid;">Доп.Настройки</td>
+    <td><input type="checkbox" id="key_note" checked>Показывать ключ</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+<input class="myButton_click" id="bt1" type="button" value="Новая нота"/><input class="myButton_click" id='ans' type="button" value="Верный ответ"/>
+</div>
+
+</body>
+</html>
